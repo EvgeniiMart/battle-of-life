@@ -5,8 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class SimulationControl : MonoBehaviour
 {
-    [SerializeField] private Tilemap frozen_tilemap;
-    [SerializeField] private Tilemap actual_tilemap;
+    [SerializeField] private Tilemap tilemap;
     [SerializeField] private Tile alive_cell_tile;
     [SerializeField] private float sims_gap;
     [SerializeField] private bool is_simulating;
@@ -58,7 +57,6 @@ public class SimulationControl : MonoBehaviour
     void SimStep()
     {
         was_updated.Clear();
-        // frozen_tilemap = actual_tilemap;
         frozen_alive_cells = new HashSet<Vector2Int>(alive_cells);
 
         Vector2Int observed_cell;
@@ -109,12 +107,12 @@ public class SimulationControl : MonoBehaviour
     {
         alive_cells.Add(cell);
         Vector3Int v3cell = new Vector3Int(cell.x, cell.y, 0);
-        actual_tilemap.SetTile(v3cell, alive_cell_tile);
+        tilemap.SetTile(v3cell, alive_cell_tile);
     }
     void KillCell(Vector2Int cell)
     {
         alive_cells.Remove(cell);
         Vector3Int v3cell = new Vector3Int(cell.x, cell.y, 0);
-        actual_tilemap.SetTile(v3cell, null);
+        tilemap.SetTile(v3cell, null);
     }
 }
