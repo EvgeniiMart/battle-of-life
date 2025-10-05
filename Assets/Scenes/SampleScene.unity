@@ -275,14 +275,14 @@ MonoBehaviour:
   mouseButton: 0
   dragSpeed: -0.06
   ztTarget: {fileID: 0}
-  DCTranslate: 1
-  DCZoom: 1
+  DCTranslate: 0
+  DCZoom: 0
   DCZoomTargetIn: 4
   DCZoomTranslateSpeed: 0.5
   DCZoomTargetOut: 10
   DCZoomSpeed: 0.5
   edgeBoundary: 20
-  edgeSpeed: 1
+  edgeSpeed: 0
   keyboardInput: 0
   inverseKeyboard: 0
   touchEnabled: 0
@@ -296,7 +296,7 @@ MonoBehaviour:
   followTarget: {fileID: 0}
   lerpSpeed: 0.5
   offset: {x: 0, y: 0, z: -10}
-  clampCamera: 1
+  clampCamera: 0
   bounds: {fileID: 0}
   dollyRail: {fileID: 0}
   snapTarget: {fileID: 0}
