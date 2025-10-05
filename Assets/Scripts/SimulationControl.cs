@@ -65,6 +65,8 @@ public class SimulationControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckMouseClicks();
+
         if (is_simulating)
         {
             time_passed += Time.deltaTime;
@@ -122,6 +124,16 @@ public class SimulationControl : MonoBehaviour
         }
     }
 
+    void CheckMouseClicks()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector3 mouse_world_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int v3cell = tilemap.WorldToCell(mouse_world_pos);
+            InvertCell(new Vector2Int(v3cell.x, v3cell.y));
+        }
+    }
+
     void SimStep()
     {
         was_updated.Clear();
@@ -171,6 +183,16 @@ public class SimulationControl : MonoBehaviour
         }
     }
 
+    void InvertCell(Vector2Int cell)
+    {
+        if (alive_cells.Contains(cell))
+        {
+            KillCell(cell);
+        } else
+        {
+            BornCell(cell);
+        }
+    }
     void BornCell(Vector2Int cell)
     {
         alive_cells.Add(cell);
