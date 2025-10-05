@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class SimulationControl : MonoBehaviour
@@ -17,6 +19,12 @@ public class SimulationControl : MonoBehaviour
     private HashSet<Vector2Int> frozen_alive_cells;
     private Dictionary<Vector2Int, bool> was_updated;
 
+    private InputAction button_pause;
+    private InputAction button_speed_up;
+    private InputAction button_speed_down;
+
+    [SerializeField] public TMP_Text sim_speed_text;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +32,20 @@ public class SimulationControl : MonoBehaviour
         time_passed = 0;
         alive_cells = new HashSet<Vector2Int>();
         was_updated = new Dictionary<Vector2Int, bool>();
+
+        button_pause = new InputAction(binding: "<Keyboard>/space");
+        button_pause.performed += _ => Pause();
+        button_pause.Enable();
+
+        button_speed_up = new InputAction(binding: "<Keyboard>/e");
+        button_speed_up.performed += _ => ChangeSimulationSpeed(true);
+        button_speed_up.Enable();
+
+        button_speed_down = new InputAction(binding: "<Keyboard>/q");
+        button_speed_down.performed += _ => ChangeSimulationSpeed(false);
+        button_speed_down.Enable();
+
+        UpdateSimSpeedUI();
 
         if (is_random_start)
         {
@@ -51,6 +73,52 @@ public class SimulationControl : MonoBehaviour
                 time_passed = 0;
                 SimStep();
             }
+        }
+    }
+
+    void Pause()
+    {
+        is_simulating = !is_simulating;
+        UpdateSimSpeedUI();
+    }
+
+    void ChangeSimulationSpeed(bool is_speed_up)
+    {
+        float low_limit = 0.125f;
+        if (is_speed_up)
+        {
+            if (sims_gap <= low_limit)
+            {
+                sims_gap = 0;
+            } else
+            {
+                sims_gap /= 2;
+            }
+        } else
+        {
+            if (sims_gap < low_limit)
+            {
+                sims_gap = low_limit;
+            } else if (sims_gap <= 1)
+            {
+                sims_gap *= 2;
+            }
+        }
+        UpdateSimSpeedUI();
+    }
+
+    void UpdateSimSpeedUI()
+    {
+        float eps = 1e-9f;
+        if (!is_simulating) {
+            sim_speed_text.text = "Simulation is paused";
+        } else if (sims_gap < eps)
+        {
+            sim_speed_text.text = "Simulation speed: as fast as possible";
+        } else
+        {
+            float sims_in_second = 1 / sims_gap;
+            sim_speed_text.text = $"Simulation speed: {sims_in_second} simulations in second";
         }
     }
 
