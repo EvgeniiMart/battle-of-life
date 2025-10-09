@@ -214,8 +214,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 457613875}
+  m_Children: []
   m_Father: {fileID: 1679409505}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -291,11 +290,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 434833948}
+  m_Father: {fileID: 1679409505}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 105, y: -8}
+  m_AnchoredPosition: {x: -87.619995, y: -312.092}
   m_SizeDelta: {x: 901.6842, y: 53.3022}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &457613876
@@ -756,14 +755,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 737171540}
+  m_Children: []
   m_Father: {fileID: 1679409505}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 388.7786, y: -224.33}
-  m_SizeDelta: {x: -777.5573, y: -448.66}
+  m_AnchoredPosition: {x: 388.7786, y: -145.2544}
+  m_SizeDelta: {x: -777.56, y: -290.5088}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &669836006
 MonoBehaviour:
@@ -833,11 +831,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 669836005}
+  m_Father: {fileID: 1679409505}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.786499, y: 82.64288}
+  m_AnchoredPosition: {x: 388.77856, y: 20.669983}
   m_SizeDelta: {x: 362.6769, y: 56.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &737171541
@@ -860,9 +858,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "CONTROLS\\n\\nSimulation:\\n[SPACE] \u2014 pause/unpause\\n[A]/[D] \u2014
-    change simulation speed\\n\\nPattern Spawning:\\n[Q]/[E] \u2014 change rotation\\n[Z]/[X]/[C]
-    \u2014 spawn Glider/Glider Gun/Spaceship "
+  m_text: "CONTROLS\\n\\nCamera:\\n[LMB] \u2014 drag\\n[MOUSEWHEEL] \u2014 scale\\n\\nSimulation
+    speed:\\n[SPACE] \u2014 pause/unpause\\n[A]/[D] \u2014 change simulation speed\\n\\nField:\\n[RMB]
+    \u2014 invert cell state\\n\\nPattern Spawning:\\n[Q]/[E] \u2014 change rotation\\n[Z]/[X]/[C]
+    \u2014 spawn Glider/Glider Gun/Spaceship"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1154,7 +1153,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 434833948}
+  - {fileID: 457613875}
   - {fileID: 669836005}
+  - {fileID: 737171540}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
