@@ -134,6 +134,17 @@ public class SimulationControl : MonoBehaviour
         }
     }
 
+    public void SpawnPattern(HashSet<Vector2Int> pattern)
+    {
+        Vector3 mouse_world_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3Int v3cell = tilemap.WorldToCell(mouse_world_pos);
+        Vector2Int mouse_cell = new Vector2Int(v3cell.x, v3cell.y);
+        foreach (Vector2Int cell_shift in pattern)
+        {
+            BornCell(mouse_cell + cell_shift);
+        }
+    }
+
     void SimStep()
     {
         was_updated.Clear();
