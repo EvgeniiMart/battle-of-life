@@ -37,11 +37,11 @@ public class SimulationControl : MonoBehaviour
         button_pause.performed += _ => Pause();
         button_pause.Enable();
 
-        button_speed_up = new InputAction(binding: "<Keyboard>/e");
+        button_speed_up = new InputAction(binding: "<Keyboard>/d");
         button_speed_up.performed += _ => ChangeSimulationSpeed(true);
         button_speed_up.Enable();
 
-        button_speed_down = new InputAction(binding: "<Keyboard>/q");
+        button_speed_down = new InputAction(binding: "<Keyboard>/a");
         button_speed_down.performed += _ => ChangeSimulationSpeed(false);
         button_speed_down.Enable();
 

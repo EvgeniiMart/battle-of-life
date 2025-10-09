@@ -2,24 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+using static UnityEngine.UI.Image;
 
 public class PatternSpawner : MonoBehaviour
 {
     [SerializeField] public SimulationControl simulation_control_script;
     List<HashSet<Vector2Int>> patterns;
     List<InputAction> patterns_input;
+    
+    int rotates_num;
+    InputAction rotate_clockwise;
+    InputAction rotate_anticlockwise;
 
     void Start()
     {
         patterns = new List<HashSet<Vector2Int>>();
         patterns_input = new List<InputAction>();
         CreatePatterns();
+
+        rotates_num = 0;
+        InputAction rotate_clockwise = new InputAction(binding: "<Keyboard>/e");
+        rotate_clockwise.performed += _ => ChangeRotatesNum(true);
+        rotate_clockwise.Enable();
+        InputAction rotate_anticlockwise = new InputAction(binding: "<Keyboard>/q");
+        rotate_anticlockwise.performed += _ => ChangeRotatesNum(false);
+        rotate_anticlockwise.Enable();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void ChangeRotatesNum(bool is_clockwise)
+    {
+        if (is_clockwise)
+        {
+            rotates_num += 1;
+            if (rotates_num >= 4)
+            {
+                rotates_num = 0;
+            }
+        } else
+        {
+            rotates_num -= 1;
+            if (rotates_num <= -1)
+            {
+                rotates_num = 3;
+            }
+        }
     }
 
     void CreatePatterns()
@@ -35,7 +68,7 @@ public class PatternSpawner : MonoBehaviour
         };
         patterns.Add(glider);
 
-        InputAction glider_input = new InputAction(binding: "<Keyboard>/Z");
+        InputAction glider_input = new InputAction(binding: "<Keyboard>/z");
         patterns_input.Add(glider_input);
 
         // GLIDER GUN
@@ -83,7 +116,7 @@ public class PatternSpawner : MonoBehaviour
         };
         patterns.Add(glider_gun);
 
-        InputAction glider_gun_input = new InputAction(binding: "<Keyboard>/X");
+        InputAction glider_gun_input = new InputAction(binding: "<Keyboard>/x");
         patterns_input.Add(glider_gun_input);
 
         // SPACESHIP
@@ -158,7 +191,7 @@ public class PatternSpawner : MonoBehaviour
         };
         patterns.Add(spaceship);
 
-        InputAction spaceship_input = new InputAction(binding: "<Keyboard>/C");
+        InputAction spaceship_input = new InputAction(binding: "<Keyboard>/c");
         patterns_input.Add(spaceship_input);
 
         // Patterns end
@@ -167,8 +200,29 @@ public class PatternSpawner : MonoBehaviour
         {
             int local_index = i;
             patterns_input[i].performed += _ 
-                => simulation_control_script.SpawnPattern(patterns[local_index]);
+                => simulation_control_script.SpawnPattern(RotatePattern(patterns[local_index]));
             patterns_input[i].Enable();
         }
+    }
+
+    HashSet<Vector2Int> RotatePatternOnce(HashSet<Vector2Int> pattern)
+    {
+        HashSet<Vector2Int> rotated = new HashSet<Vector2Int>();
+        foreach (Vector2Int cell in pattern)
+        {
+            Vector2Int rotatedPoint = new Vector2Int(cell.y, -cell.x);
+            rotated.Add(rotatedPoint);
+        }
+        return rotated;
+    }
+
+    HashSet<Vector2Int> RotatePattern(HashSet<Vector2Int> pattern)
+    {
+        HashSet<Vector2Int> rotated = pattern;
+        for (int i = 0; i < rotates_num; ++i)
+        {
+            rotated = RotatePatternOnce(rotated);
+        }
+        return rotated;
     }
 }
